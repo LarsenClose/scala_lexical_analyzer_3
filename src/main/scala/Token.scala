@@ -1,17 +1,20 @@
 /*
  * CS3210 - Principles of Programming Languages - Fall 2020
  * Instructor: Thyago Mota
- * Description: Activity 06 - Token
+ * Description: Homework 03 - Token
+ * Student: Larsen Close
  */
 
 object Token extends Enumeration {
   val EOF        = Value
-  val ADD_OP     = Value
-  val SUB_OP     = Value
-  val MUL_OP     = Value
-  val DIV_OP     = Value
+  val DECLARE    = Value
   val IDENTIFIER = Value
-  val LITERAL    = Value
-  val OPEN_PN    = Value
-  val CLOSE_PN   = Value
+  val REAL       = Value
+  val COMPLEX    = Value
+  val FIXED      = Value
+  val FLOATING   = Value
+  val SINGLE     = Value
+  val DOUBLE     = Value
+  val BINARY     = Value
+  val DECIMAL    = Value
 }
