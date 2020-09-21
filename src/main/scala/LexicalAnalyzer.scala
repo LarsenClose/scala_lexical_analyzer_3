@@ -76,7 +76,7 @@ class LexicalAnalyzer(private var source: String) extends Iterable[LexemeUnit] {
           else {
             var c = input(0)
             var charClass = getCharClass(c)
-            
+
 
             // TODO: recognize identifiers
             if (charClass == CharClass.SIGIL) {
@@ -92,16 +92,12 @@ class LexicalAnalyzer(private var source: String) extends Iterable[LexemeUnit] {
                   input = input.substring(1)
                 } else if (charClass == CharClass.BLANK) {
                   found_blank = true
-                }  // else {
-                  //throw new Exception("Lexical Analyzer Error: unrecognizable symbol found!")
-              //  }
+                }
               }
-              
                 identifier_present = true
                 return new LexemeUnit(lexeme, Token.IDENTIFIER)
-                
-            }
-   
+            } // end identifier recognition
+
 
               if (charClass == CharClass.LETTER) {
                 lexeme += c
@@ -111,30 +107,22 @@ class LexicalAnalyzer(private var source: String) extends Iterable[LexemeUnit] {
                 while (input.length >0 && !found_blank) {
                   c = input(0)
                   charClass = getCharClass(c)
-                  
+
                   if (charClass == CharClass.LETTER){
                     lexeme += c
                     input = input.substring(1)
                   } else if (charClass == CharClass.BLANK) {
                     found_blank = true
-                  } 
-                }
+                  }
+                } // end while loop
               } // end char class starting with letter
-                  
 
-            else WORD_TO_TOKEN.contains(lexeme) 
-              lexeme match {
-                    case "declare"  => return new LexemeUnit(lexeme, Token.DECLARE)
-                    case "real"     => return new LexemeUnit(lexeme, Token.REAL)
-                    case "complex"  => return new LexemeUnit(lexeme, Token.COMPLEX)
-                    case "fixed"    => return new LexemeUnit(lexeme, Token.FIXED)
-                    case "floating" => return new LexemeUnit(lexeme, Token.FLOATING)
-                    case "single"   => return new LexemeUnit(lexeme, Token.SINGLE)
-                    case "double"   => return new LexemeUnit(lexeme, Token.DOUBLE)
-                    case "binary"   => return new LexemeUnit(lexeme, Token.BINARY)
-                    case "decimal"  => return new LexemeUnit(lexeme, Token.DECIMAL)
-                    case _          => throw new Exception("Lexical Analyzer Error: unrecognizable symbol found!")
-              } // end match
+            if (WORD_TO_TOKEN contains lexeme) {
+                return new LexemeUnit(lexeme, WORD_TO_TOKEN(lexeme))
+              } else {
+                throw new Exception("Lexical Analyzer Error: unrecognizable symbol found!")
+              }
+
           } // end else checking more chars
         } // end else lexeme
       } // end next
